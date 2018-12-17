@@ -1,0 +1,42 @@
+.header-bar {
+  background: #ff9933;
+  display: flex;
+  overflow-x: scroll;
+  height: 50px;
+  /*position: fixed;*/
+}
+
+.header-item {
+  padding: 15px 20px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.header-item-main {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 5px;
+}
+
+.header-item-auth {
+  padding: 15px 20px;
+  text-align: right;
+}
+
+.logo-label {
+    margin: 20px;
+    /* padding: 20px; */
+}
+
+.user-pictogram {
+  width: 20px;
+}
+
+.footer {
+    text-align: center;
+}
+
+.content {
+    padding: 20 px;
+}
