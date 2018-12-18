@@ -52,6 +52,24 @@
     </ul>
     </div>
 
+    <div>Public key <label class="title_lab">cryptography algorithms</label> based on elliptic curves:</div>
+    <ul>
+      <li>The Elliptic Curve Diffie–Hellman (ECDH) </li>
+      Key agreement scheme based on the Diffie–Hellman scheme,
+      <li>Elliptic Curve Integrated Encryption Scheme (ECIES)</li>
+      Also known as Elliptic Curve Augmented Encryption Scheme or simply the Elliptic Curve Encryption Scheme.
+      <li>Elliptic Curve Digital Signature Algorithm (ECDSA)</li>
+      Algorithm based on the Digital Signature Algorithm.
+      <li>Edwards-curve Digital Signature Algorithm (EdDSA)</li>
+      Algorithm is based on Schnorr signature and uses twisted Edwards curve.
+      <li>ECMQV</li>
+      Key agreement algorithm based on the MQV key agreement.
+      <li>ECQV</li>
+      Certificate scheme.
+    </ul>
+
+    <div> The most popular <label class="title_lab">elliptic curves</label> used in cryptography: nistp256, nistp384, nistp521, secp256k1, secp384r1, secp521r1</div>
+
     <div><label class="title_lab">Bitcoin</label> can be considered a <label class="intext_lab">Decentrilized Public Key Infrastructure (DPKI)</label>:</div>
       <div>The transactions on the network are verified by network nodes and recorded on a public distributed ledger (blockchain).
       Bitcoin uses <label class = "intext_lab">elliptic curves cryptography</label> algorithms as a way of verifying ownership and facilitating transactions
@@ -60,7 +78,7 @@
       <ul class = "params">
       <li>Domain parameters over the finite field $F_p$ are specified by the sextuple $T = (p, a, b, G, n, h)$ where the $F_p$ is defined by:</li>
         <li>$p = FFFFFFFF\text{ } FFFFFFFF\text{ }  FFFFFFFF\text{ }  FFFFFFFF\text{ }  FFFFFFFF\text{ }  FFFFFFFF\text{ }  FFFFFFFE\text{ } FFFFFC2F =$</li>
-        <li>$= 2^{256} − 2^32 − 2^9 − 2^8 − 2^7 − 2^6 − 2^4 − 1$</li>
+        <li>$= 2^{256} − 2^{32} − 2^9 − 2^8 − 2^7 − 2^6 − 2^4 − 1$</li>
         <li>The curve $E$: $y^2 = x^3 + ax + b$ over $F_p$ is defined by:</li>
         <li>$a = 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000$</li>
         <li>$b = 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000000\text{ } 00000007$</li>
