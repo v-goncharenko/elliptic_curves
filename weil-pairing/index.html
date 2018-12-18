@@ -44,7 +44,7 @@
       Let E(K) be some elliptic curve over a field K, 
         <span lang='latex'>Q, R \in E(K)[n]</span>,
       where <span lang='latex'>E(K)[n] = \{T \in E(K) | n \cdotp T = O
-        \}</span>. 
+        \}</span>, O denotes infinity point. 
       Then weil-pairing is a function that produces the n-th root
       of unity:
       <p align='center' lang='latex'>w(Q, P) \in \mu_n,</p>
@@ -72,38 +72,91 @@
 
 		<h2>Building using divisors</h2>
       Consider the function <span lang='latex'>f(x, y): E(K)
-        \rightarrow \mathbb{R}</span>. We define it's divider as following:
+        \rightarrow \mathbb{R}</span>. We define it's divisor as following:
       <p align='center' lang='latex'>div(f) = \sum_i m_i(Z_i) - \sum_j m_j(P_j),</p>
       where P are poles of f on E(K), Z are zeros and 
       <span lang='latex'>m_i, m_j</span> are corresponding
       multiplicities. Note, that (P) and (Q) formally are elements of new group and
-      cannot be added like points on curve. Function f is called rational if it can 
-      be represented as ratio of two polynomials. For rational functions 
+      cannot be added like points on curve, but instead can be added as usual
+      polynomials. Examples:
+      <p align='center' lang='latex'>A = (Q) - 2(P),\ B = (P) - (R)</p>
+      <p align='center' lang='latex'>A + B = (Q) - (P) - (R),\ 2A = 2(Q) - 4(P)</p>
+      Function f is called rational if it can 
+      be represented as ratio of two polynomials. Divisors of rational functions
+      are called principle divisors and have the following quality:
       <span lang='latex'>\sum_i m_i - \sum_j m_j = 0</span> (simple heuristic
       approach is just to pad missing poles with O, thus for line intersecting
-      E(K) in points A, B, C (obviously rational function), divider will be (A)
-      + (B) + (C) - 3(O)). Let's take 
+      E(K) in points A, B, C (obviously rational function), divisor will be (A)
+      + (B) + (C) - 3(O)). 
       <span lang='latex'>S, T \in E(K)[m]</span> for some m coprime to p and construct 
       two divisors <span lang='latex'>A = (S) - (O), B = (T) - (O)</span>. 
       Now we should find two functions 
       <span lang='latex'>f_A, f_b:\ div(f_A) = mA,\ div(f_B) = mB</span>, and
       the weil-pairing will be defined as:
-      <p align='center' lang='latex'>w(S, T) = \frac{f_A(B)}{f_B(A)}.</p>
+      <p align='center' lang='latex'>w(S, T) = \frac{f_A(B)}{f_B(A)},</p>
+      where we apply function f to divisor C as following:
+      <p align='center' lang='latex'>f(C) = \prod_i f(Z_i)^{m_i} \cdot \prod_j
+      f(P_i)^{-m_j},</p> 
+      where <span lang='latex'>Z_i, m_i, P_j, m_j</span> are zeros and poles in
+      C with their corresponding multiplicities.
       It can be shown that weil-pairing doesn't depend on the choice of A, B and
       the corresponding functions.
       
 
     <h2>Miller's algorithm to compute weil-pairing</h2>
+      <h3>Function from divisor calculation</h3>
+        <p align='center' lang='latex'>D_1 = k(P_1) - k(O) + div(f_1)</p>
+        <p align='center' lang='latex'>D_2 = p(P_2) - p(O) + div(f_2)</p>
+        <p align='center' lang='latex'>D_1 + D_2  = (P_3) - (O) + div(f_1f_2f_3)</p>
+        Here we denote <span lang='latex'>P_3 = kP_1 + pP_2,\
+          f_3=\frac{l}{v},\ l: l_1x + l_2y + l_3 = 0</span> is the equation of
+        the line going through <span lang='latex'>kP_1, pP_2,\ v: x + v_1 =
+          0</span> is the equation of vertical line going through <span
+          lang='latex'>P_3</span> (if <span lang='latex'>P_3 = O</span>, then
+        take <span lang='latex'>v = 1</span>). For k=1 (p-1) take 
+        <span lang='latex'>div(f_1) = 1\ (div(f_2) = 1)</span>. Example: <br>
+        Consider <span lang='latex'>E(K): y^2 = x^3 + 3x mod 11</span>. Let's
+        take P = (1, 2) and find f such that div(f) = 6(P) - 6(O). <br><br>
+
+        <span lang='latex'>(P) - (O) = (P) - (O) + div(1)</span><br><br>
+
+        <span lang='latex'>2(P) - 2(O) = ((P) - (O)) + ((P) - (O)) =
+          (P + P) + div(1 \cdot 1 \cdot \frac{l}{v}) = ((3, 6)) 
+           - (O)+ div(\frac{y + 4x + 5}{x + 8})</span><br><br>
+        
+        <span lang='latex'>4(P) - 4(O) = (2(P) - 2(O)) + (2(P) - 2(O)) =
+          (2P + 2P) - 4(O)+ div(f_{2,2} \cdot f_{2,2} \cdot \frac{l}{v}) = ((3,
+          6)) - (O)
+          + div(\frac{(y + 4x + 5)^2}1{(x + 8)^2}\frac{(y + 3x +
+          7)}{(x+8)})</span><br><br>
+
+        <span lang='latex'>6(P) - 6(O) = (2(P) - 2(O)) + (4(P) - 4(O)) =
+          (2P + 4P) - 6(O)+ div(f_{2,2} \cdot f_{2,2} \cdot \frac{l}{v}) = (O) - (O)
+          + div(\frac{(y + 4x + 5)^3}1{(x + 8)^3}\frac{(y + 3x +
+          7)}{(x+8)}\frac{(x + 8)}{1})</span><br><br>
+
       <h3>Schema</h3>
         Suppose we want to calculate weil-pairing for
         <span lang='latex'>S, T \in E(K).</span> Choose S', T' from E(K) such
         that all T, S, T+T', S+S' are different. Set A = (S + S') - (S'), B = (T
-        + T') - (T') (trick to avoid infinity).
-
-      <h3>Examples</h3>
+        + T') - (T'). <br>
+        Now we compute the functions <span lang='latex'>f_A,\ f_B</span> 
+        from divisors with the algorithm above and finally get ours pairing:
+        <p align='center' lang='latex'>w(S, T) = \frac{f_A(T +
+        T')f_B(S')}{f_B(S + S')f_A(T')}</p>
 
     <h2>Applications</h2>
-      <h3>Cipher schema</h3>
+      <h3>IBE Cipher schema</h3>
+      <ul>
+        <li><b>INIT</b></li>
+        asdffsda
+        <li><b>EXTRACT</b></li>
+        asdffsda
+        <li><b>ENCRYPT</b></li>
+        asdffsda
+        <li><b>DECRYPT</b></li>
+        asdffsda
+      </ul>     
 
       <h3>3 side key exchange</h3>
       
