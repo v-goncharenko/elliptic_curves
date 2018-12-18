@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 <head>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
@@ -9,11 +10,21 @@
     Elliptic curves demo
   </title>
 
+	<style>
+   .content {
+    margin-left: 15%; /* Отступ слева */
+    margin-right: 15%; /* Отступ слева */
+    padding: 10px; /* Поля вокруг текста */
+		line-height: 2em;
+   }
+  </style>
+	
   <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
   <!-- place your CSS files here -->
   <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="./index.css">
 
   <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -29,7 +40,86 @@
   </header>
 
   <div class="content">
-   ... 
+		<h2>Definition</h2>
+      Let E(K) be some elliptic curve over a field K, 
+        <span lang='latex'>Q, R \in E(K)[n]</span>,
+      where <span lang='latex'>E(K)[n] = \{T \in E(K) | n \cdotp T = O
+        \}</span>. 
+      Then weil-pairing is a function that produces the n-th root
+      of unity:
+      <p align='center' lang='latex'>w(Q, P) \in \mu_n,</p>
+      where <span lang='latex'>\mu_n = \{x \in K | x^n = 1\} </span>
+    <h2>Properties</h2>
+      <ul>
+        <li>bilinearity: <br>
+          <span lang='latex'>w(Q_1 + Q_2, P) = w(Q_1, P)w(Q_2, P)</span> <br>
+          <span lang='latex'>w(Q, P_1 + P_2) = w(Q, P_1)w(Q, P_2)</span>
+        </li>
+        <li>
+          alternating property: <br>
+          <span lang='latex'>w(Q, P) = w(P, Q)^{-1}</span>
+        </li>
+        <li>
+          nondegenerate property: <br>
+          <span lang='latex'>\forall P\ w(Q, P) = 1 \Leftrightarrow Q = O</span>
+          <br>
+          <span lang='latex'>\forall Q\ w(Q, P) = 1 \Leftrightarrow P = O</span>
+        </li>
+        <li>
+          <span lang='latex'>w(Q, Q) = 1</span>
+        </li>
+      </ul>
+
+		<h2>Building using divisors</h2>
+      Consider the function <span lang='latex'>f(x, y): E(K)
+        \rightarrow \mathbb{R}</span>. We define it's divider as following:
+      <p align='center' lang='latex'>div(f) = \sum_i m_i(Z_i) - \sum_j m_j(P_j),</p>
+      where P are poles of f on E(K), Z are zeros and 
+      <span lang='latex'>m_i, m_j</span> are corresponding
+      multiplicities. Note, that (P) and (Q) formally are elements of new group and
+      cannot be added like points on curve. Function f is called rational if it can 
+      be represented as ratio of two polynomials. For rational functions 
+      <span lang='latex'>\sum_i m_i - \sum_j m_j = 0</span> (simple heuristic
+      approach is just to pad missing poles with O, thus for line intersecting
+      E(K) in points A, B, C (obviously rational function), divider will be (A)
+      + (B) + (C) - 3(O)). Let's take 
+      <span lang='latex'>S, T \in E(K)[m]</span> for some m coprime to p and construct 
+      two divisors <span lang='latex'>A = (S) - (O), B = (T) - (O)</span>. 
+      Now we should find two functions 
+      <span lang='latex'>f_A, f_b:\ div(f_A) = mA,\ div(f_B) = mB</span>, and
+      the weil-pairing will be defined as:
+      <p align='center' lang='latex'>w(S, T) = \frac{f_A(B)}{f_B(A)}.</p>
+      It can be shown that weil-pairing doesn't depend on the choice of A, B and
+      the corresponding functions.
+      
+
+    <h2>Miller's algorithm to compute weil-pairing</h2>
+      <h3>Schema</h3>
+        Suppose we want to calculate weil-pairing for
+        <span lang='latex'>S, T \in E(K).</span> Choose S', T' from E(K) such
+        that all T, S, T+T', S+S' are different. Set A = (S + S') - (S'), B = (T
+        + T') - (T') (trick to avoid infinity).
+
+      <h3>Examples</h3>
+
+    <h2>Applications</h2>
+      <h3>Cipher schema</h3>
+
+      <h3>3 side key exchange</h3>
+      
+    <h2>Sources</h2>
+      <ol>
+        <li>
+          https://en.wikipedia.org/wiki/Weil_pairing 
+        </li>
+        <li>
+          https://crypto.stanford.edu/pbc/notes/elliptic/funcfield.html
+        </li>
+        <li>
+          https://www.win.tue.nl/~bdeweger/downloads/MT%20Martijn%20Maas.pdf
+        </li>
+      </ol>
+		
   </div>
 
   <footer>
