@@ -5,7 +5,7 @@
   <title>textured_green - another page</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" type="text/css" href="style/style.css" title="style" />
 </head>
 
@@ -16,7 +16,7 @@
         <div id="logo_text">
           <!-- class="logo_colour", allows you to change the colour of the text -->
           <h1><a href="index.html">Elliptical Curves <span class="logo_colour">Demo</span></a></h1>
-          <h2>Simple. Contemporary. Website Template.</h2>
+<h2>Simple Introduction on Elliptical Curves</h2>
         </div>
       </div>
       <div id="menubar">
@@ -30,9 +30,50 @@
         </ul>
       </div>
     </div>
-    <div id="site_content"> </div>
-    <div id="footer">
-      Copyright &copy; textured_green | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a>
+    <div id="site_content">
+		<h1 align="center"><strong><u>Introduction to the Discrete Log Problem</u></strong></h1>
+<p style="text-align: justify;">&nbsp;</p>
+<p style="text-align: justify;"><strong>What is Logarithm?</strong></p>
+<p style="text-align: justify;">In&nbsp;mathematics, the&nbsp;<strong>logarithm</strong>&nbsp;is the&nbsp;inverse function&nbsp;to&nbsp;exponentiation. That means the logarithm of a given number&nbsp;<em>x</em>&nbsp;is the&nbsp;exponent&nbsp;to which another fixed number, the&nbsp;<em>base</em>&nbsp;<em>b</em>, must be raised, to produce that number&nbsp;<em>x</em>. In the simplest case the logarithm counts repeated multiplication of the same factor; e.g., since&nbsp;1000 = 10 &times; 10 &times; 10 = 10<sup>3</sup>, the "logarithm to base&nbsp;10" of&nbsp;1000&nbsp;is&nbsp;3. The logarithm of&nbsp;<em>x</em>&nbsp;to&nbsp;<em>base</em>&nbsp;<em>b</em>&nbsp;is denoted as&nbsp;log<em><sub>b</sub></em> (<em>x</em>)&nbsp;(or, without parentheses, as&nbsp;log<em><sub>b</sub></em> <em>x</em>, or even without explicit base as&nbsp;log <em>x</em>, when no confusion is possible). More generally, exponentiation allows any positive&nbsp;real number&nbsp;to be raised to any real power, always producing a positive result, so the logarithm for any two positive real numbers&nbsp;<em>b</em>&nbsp;and&nbsp;<em>x</em>&nbsp;where&nbsp;<em>b</em>&nbsp;is not equal to&nbsp;1, is always a unique real number&nbsp;<em>y</em>. More explicitly, the defining relation between exponentiation and logarithm is:&nbsp;log<sub>b</sub>x=y.</p>
+<p style="text-align: justify;">log<sub>a</sub>b is not an integer:&nbsp;</p>
+<p style="text-align: justify;">Let log<sub>2</sub>3=x, therefore 2<sup>x</sup>=3, i.e. x &asymp;1.58496.</p>
+<p style="text-align: justify;">&nbsp;<strong>Discrete Logarithm Problem Properties:</strong></p>
+<p style="text-align: justify;">We look at the set Z<sub>p</sub>*={1,&hellip;, P-1}, where P is an odd prime number.</p>
+<p style="text-align: justify;">Notation: &alpha;-&beta;=(&alpha;&beta;modP); &alpha;,&beta; ϵ Z<sub>p</sub>*.</p>
+<p style="text-align: justify;"><strong>Properties of </strong><strong>:</strong></p>
+<ul style="text-align: justify;">
+<li>If &alpha;,&beta; ϵ Z<sub>p</sub>*, then &alpha;.&beta; = &beta;.&alpha; ϵ Z<sub>p</sub>*, i.e. <strong>Closure Property.</strong></li>
+<li>If &alpha;,&beta;,&gamma; ϵ Z<sub>p</sub>*, then &alpha;.(&beta;.&gamma;)=(&alpha;.&beta;).&gamma;, i.e. <strong>Associative Property.</strong></li>
+<li>If &alpha; ϵ Z<sub>p</sub>*, then 1.&alpha;=&alpha;, i.e. Z<sub>p</sub>*has an identity element.</li>
+<li>If &alpha; ϵ Z<sub>p</sub>* and &beta; ϵ Z<sub>p</sub>*, such that &alpha;.&beta;=1, then every element in Z<sub>p</sub>* has an inverse.</li>
+</ul>
+<p style="text-align: justify;">Any collection <strong>G</strong> with an operator &ldquo;.&rdquo; That satisfies the above 4 conditions is called a Group.</p>
+<hr />
+<p style="text-align: justify;"><strong>What is Cyclic Group?</strong></p>
+<p style="text-align: justify;">Let us consider an example: (Z<sub>11</sub>*,.) -&gt; Z<sub>11</sub>* = {1,2,3,&hellip;,10}, let&nbsp;&alpha; = 2, now checking the values for &alpha;, &alpha;<sup>2</sup>, &alpha;<sup>3</sup>, &hellip;, &alpha;<sup>10</sup>. All the values of &alpha; will be covering all values in Z<sub>11</sub>* once. Now at &alpha;<sup>11</sup>, &alpha;<sup>12</sup>,&hellip;, &alpha;<sup>&infin;&nbsp;</sup>the sequence will repeat, making it cyclic wave and cover all number. Therefore,&nbsp;&alpha; =2 is a generator of&nbsp;Z<sub>11</sub>*.</p>
+<p style="text-align: justify;"><strong>Definition: </strong>We say that &alpha; ϵ Z<sub>p</sub>* is a generator if { &alpha;, &alpha;<sup>2</sup>,&hellip;, &alpha;<sup>p-1</sup>} = Z<sub>p</sub>* i.e. Z<sub>p</sub>*={1,2,&hellip;,p-1}. In this case, we call (Z<sub>p</sub>*,.) a <strong>cyclic group.</strong>&nbsp;</p>
+<p style="text-align: justify;">To find if &alpha; ϵ Z<sub>p</sub>* is a generator, we use the following theorem.</p>
+<p style="text-align: justify;"><strong>Theorem: </strong>&alpha; ϵ Z<sub>p</sub>*is a generator of Z<sub>p</sub>* if and only if &alpha;<sup>(p-1)/q</sup>&nbsp;&ne; 1 mod p for all primes q such that q/(p-1). Where q is prime division of P-1.</p>
+<p style="text-align: justify;">Let &alpha; be a generator of Z<sub>p</sub>* = { &alpha;, &alpha;<sup>2</sup>,&hellip;, &alpha;<sup>p-1</sup>}. Since &alpha;<sup>p-1</sup> = 1 as per <strong>Fermat&rsquo;s Little Theorem</strong> i.e. &alpha;<sup>p-1</sup>&nbsp;&equiv; 1 mod p. Therefore, Z<sub>p</sub>* = { 1, &alpha;, &alpha;<sup>2</sup>,&hellip;, &alpha;<sup>p-2</sup>}. <br />If &beta; ϵ Z<sub>p</sub>*, then &beta; = &alpha;<sup>x&nbsp;</sup></p>
+<p style="text-align: justify;">If &beta; ϵ Z<sub>p</sub>*, then &beta; = &alpha;<sup>x</sup> for some unique 0&lt;=x&lt;=p-2 i.e. x is called the <strong>discrete logarithm </strong>of &beta; to base &alpha;.</p>
+<p style="text-align: center;">Log<sub>&alpha;</sub> &beta; = x &hArr; &alpha;<sup>x</sup>= &beta; ϵ Z<sub>p</sub>*</p>
+<p style="text-align: justify;"><strong>Definition:&nbsp;</strong>The <strong>discrete Logarithmic problem</strong> in&nbsp;Z<sub>p</sub>*</p>
+<p style="text-align: justify;">Given:</p>
+<ol>
+<li style="text-align: justify;">P is an odd prime number.</li>
+<li style="text-align: justify;">&alpha; is a generator of&nbsp;Z<sub>p</sub>*.</li>
+<li style="text-align: justify;">&beta; ϵ Z<sub>p</sub>* = {1,2,...,p-1}.</li>
+</ol>
+<p>Finding the integer x&nbsp;ϵ {0,...,p-2}, such that&nbsp;&alpha;<sup>x</sup>&equiv;&beta; mod p or finding&nbsp;Log<sub>&alpha;</sub> &beta;.</p>
+<p>If P is "large" and&nbsp;&alpha; is a generator of&nbsp;Z<sub>p</sub>*, then finding&nbsp;Log<sub>&alpha;</sub>&nbsp;&beta; is an "intractable" problem. The security of many cryptography techniques depends on these followings:</p>
+<ul>
+<li>Diffie-hellman key agreement.</li>
+<li>Elgamal Encryption.</li>
+<li>Elgamal Signature Scheme.</li>
+</ul>
+	  </div>
+<div id="footer">
+    Copyright &copy; Skoltech Team | <a href="http://www.skoltech.ru">Eleptical Curves</a>
     </div>
   </div>
 </body>
