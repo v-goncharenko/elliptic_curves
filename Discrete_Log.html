@@ -136,7 +136,7 @@ manually find n such as Q=nP. <br><br>
 
 			function generateProblem() {
 					slider.max = p		
-					while (Q == -1 || Q.x == null) {
+					while (Q == -1 || Q.x == null || (Q.x == P.x && Q.y == P.y)) {
 						const i = Math.floor(Math.random() * group_points.x.length)
 						const n = Math.floor(Math.random() * p)
 						P = {x: group_points.x[i], y: group_points.y[i]}

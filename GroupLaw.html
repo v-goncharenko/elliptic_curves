@@ -43,14 +43,44 @@
       </div>
     </div>
     <div id="site_content">
-      <p>We have an elliptic curve by a given formula y<sup>2 </sup>= x<sup>3</sup> + ax + b.</p>
-      <p>Group law is enquiring that P + Q + R = 0, where P and Q are points on an elliptic curve and R is intersection between a straight line from P to Q and elliptic curve.</p>
-      <p>Straight line slope is easy to find just by a formula s = (y<sub>P</sub> - y<sub>Q</sub>)/(x<sub>P</sub> &ndash; x<sub>Q</sub>).</p>
-      <p>From the other hand R = - P &ndash; Q.</p>
-      <p>So coordinates of R can be defined as:</p>
-      <p>x<sub>R</sub> = s<sup>2</sup> &ndash; x<sub>P</sub> - x<sub>Q</sub></p>
-      <p>y<sub>R</sub> = y<sub>P</sub> + s(x<sub>R</sub> &ndash; x<sub>Q</sub>)</p>
-      <p>But there are several special cases when P and Q are symmetric along axis or one of the coordinates of P and Q are simultaneously or individually equal to zero. During computation these cases should be manually checked and the coordinates for R assigned manually.</p>
+      
+    <h2>Elliptic curves</h2>
+    <p>An elliptic curve can be represented as set of points satisfying the equation:</p>
+    <p>y<sup>2</sup> = x<sup>3 </sup>+ ax + b</p>
+    <p>where 4a<sup>3</sup> + 27b<sup>2 </sup>&ne; 0 the exclude special curves cases. This equation is called an elliptic curve in Weierstrass form.</p>
+    <p>&nbsp;</p>
+    <h2>Group law</h2>
+    <p>A group is a set in which binary operation of summation is defined. If points a and b belong G then:</p>
+    <ol>
+    <li>a + b also belong G</li>
+    <li>(a + b) + c = a + (b + c)</li>
+    <li>there is only single element 0 that a + 0 = 0 + a = a</li>
+    <li>every element a in G has an inverse b that a + b = 0</li>
+    </ol>
+    <p>A group in <strong>elliptic</strong> <strong>curves</strong> can be defined as a group where:</p>
+    <ul>
+    <li>all points belong to the elliptic curve</li>
+    <li>identity element is defined as 0</li>
+    <li>inverse of P on elliptic curve is a symmetric point over x axis</li>
+    <li>addition operation of points on a single line is defined with equation P + Q + R = 0</li>
+    </ul>
+    <h2>Geometric addition</h2>
+    <p>If P + Q + R = 0 then P + Q = - R (Abel&rsquo;s group).</p>
+    <ul>
+    <li>P = 0, Q = 0 then there is no line defined</li>
+    <li>P = -Q then the line between P and Q is vertical and there is no third point R</li>
+    <li>P = Q then there is an infinite number of lines between P and Q</li>
+    <li>If P &ne; Q then there is no point R if the line between P and Q is a tangent to the elliptic curve</li>
+    </ul>
+    <h2>Algebraic addition</h2>
+    <p>We have an elliptic curve by a given formula y<sup>2 </sup>= x<sup>3</sup> + ax + b.</p>
+    <p>Group law is enquiring that P + Q + R = 0, where P and Q are points on an elliptic curve and R is intersection between a straight line from P to Q and elliptic curve.</p>
+    <p>Straight line slope is easy to find just by a formula s = (y<sub>P</sub> - y<sub>Q</sub>)/(x<sub>P</sub> &ndash; x<sub>Q</sub>).</p>
+    <p>From the other hand R = - P &ndash; Q.</p>
+    <p>So coordinates of R can be defined as:</p>
+    <p>x<sub>R</sub> = s<sup>2</sup> &ndash; x<sub>P</sub> - x<sub>Q</sub></p>
+    <p>y<sub>R</sub> = y<sub>P</sub> + s(x<sub>R</sub> &ndash; x<sub>Q</sub>)</p>
+    <p>But there are several special cases when P and Q are symmetric along axis or one of the coordinates of P and Q are simultaneously or individually equal to zero. During computation these cases should be manually checked and the coordinates for R assigned manually.</p>
 
     <h2>Addition example</h2>
 		<div class='row'>
