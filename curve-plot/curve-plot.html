@@ -33,16 +33,17 @@
     <label lang='latex'>y^2 = x^3 + ax + b</label> <br>
 
     <label>p</label>
-    <input type = "number" id = "p_value" value = "17" /> <br>
+    <input type = "number" id = "p_value" value = "23" /> 
 
     <label>a</label>
-    <input type = "number" id = "a_value" value = "2" /> <br>
+    <input type = "number" id = "a_value" value = "2" /> 
 
     <label>b</label>
-    <input type = "number" id = "b_value" value = "2" /> <br>
+    <input type = "number" id = "b_value" value = "3" /> <br>
 
     <button onclick="buildCurve()">Build curve</button>
-    <div id="curve-plot"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="curve-plot" align='center' style='width:70vw'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="logging" align='center' style='width:70vw; border:inset'><!-- Place your output here --></div>
   </div>
 
   <footer>
@@ -51,14 +52,29 @@
 
   <script src="./curve-plot.js"></script>
   <script>
+    function log_print(s) {
+      document.getElementById('logging').innerHTML =
+        document.getElementById('logging').innerHTML + s + '<br>'
+    }
+
+    function log_clear() {
+      document.getElementById('logging').innerHTML = ''
+    }
+      
     function buildCurve() { 
         'use strict';
         const [p, a, b] = [Number(document.getElementById("p_value").value),
                               Number(document.getElementById("a_value").value),
                               Number(document.getElementById("b_value").value)];
 
-        const group_points = make_curve_points(p, a, b) 
-        const line_points = make_line_points(p, 2, 2)
+        const group_points = make_curve_points(p, a, b);
+        const line_points = make_line_points(p, 2, 2);
+        log_clear();
+        let s = '';
+        for (var i = 0; i < group_points.x.length; i++) {
+          s = s + '---' + String(group_points.x[i]) + ':' + String(group_points.y[i]);
+        } 
+        log_print(s);
 
         const layout = {
           title: 'Elliptic curve over finite field plot', 

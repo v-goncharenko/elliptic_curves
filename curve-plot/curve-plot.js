@@ -125,14 +125,14 @@ function make_curve_points(p, a, b) {
   };
 }
 
-function make_line_points(p, a, b, step=0.01) {
+function make_line_points(p, a, b, step=0.01, name='Line') {
   const X = range(0, p, step);
   const Y = X.map(x => (a*x + b) % p);
   return {
     x: X,
     y: Y,
     mode: 'markers', 
-    name: 'Line', 
+    name: name, 
     marker: {
       color: 'rgb(0, 0, 202)', 
       size: 1,
