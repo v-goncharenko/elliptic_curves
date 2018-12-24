@@ -53,18 +53,34 @@
       <p>But there are several special cases when P and Q are symmetric along axis or one of the coordinates of P and Q are simultaneously or individually equal to zero. During computation these cases should be manually checked and the coordinates for R assigned manually.</p>
 
     <h2>Addition example</h2>
-    $y^2 = x^3 + ax + b$<br>
+		<div class='row'>
+			<div class='column'>
+				Line equation: $y^2 = x^3 + ax + b$<br>
 
-    <label>p</label>
-    <input type = "number" id = "p_value" value = "23" /> 
+				<label>p</label>
+				<input type = "number" id = "p_value" style='width:50px' value = "23" /> 
 
-    <label>a</label>
-    <input type = "number" id = "a_value" value = "2" /> 
+				<label>a</label>
+				<input type = "number" id = "a_value" style='width:50px' value = "2" /> 
 
-    <label>b</label>
-    <input type = "number" id = "b_value" value = "3" /> <br>
+				<label>b</label>
+				<input type = "number" id = "b_value" style='width:50px' value = "3" /> <br>
 
-    <button onclick="buildCurve()">Build curve</button>
+				<button onclick="buildCurve()">Build curve</button> <br>
+			</div>
+			<div class='column'>
+				Points to add: <br>
+				<label>P</label>
+				<input type = "number" id = "P_x" style='width:50px' value = "0" /> 
+				<input type = "number" id = "P_y" style='width:50px' value = "0" /> <br>
+
+				<label>Q</label>
+				<input type = "number" id = "Q_x" style='width:50px' value = "0" /> 
+				<input type = "number" id = "Q_y" style='width:50px' value = "0" /> <br>
+
+				<button onclick="drawAddition()">Add points</button>
+			</div>
+    </div>
     <div id="curve-plot" align='center' style='height:20vw'><!-- Plotly chart will be drawn inside this DIV --></div>
     <div id="logging" align='center' style='border:inset'><!-- Place your output here --></div>
     
@@ -77,22 +93,88 @@
                                 Number(document.getElementById("b_value").value)];
 
           const group_points = make_curve_points(p, a, b);
-          log_clear();
-
-          const layout = {
-            xaxis: {
-              title: 'X', 
-              showgrid: true, 
-              zeroline: true,
-            }, 
-            yaxis: {
-              title: 'Y', 
-            }
-          };
 
           Plotly.newPlot('curve-plot', [group_points], layout);
+          if (group_points.x.length > 3) {
+            document.getElementById("P_x").value = group_points.x[0];
+            document.getElementById("P_y").value = group_points.y[0];
+            document.getElementById("Q_x").value = group_points.x[2];
+            document.getElementById("Q_y").value = group_points.y[2];
+          }
+
+          log_clear();
+          log_print('Curve points:')          
+          print_points(group_points);
+          log_print('<br>')
+            
       }
+
+      function drawAddition() {
+         const [p, a, b] = [Number(document.getElementById("p_value").value),
+                                Number(document.getElementById("a_value").value),
+                                Number(document.getElementById("b_value").value)];
+        const P = {x: Number(document.getElementById("P_x").value),
+                    y: Number(document.getElementById("P_y").value)};
+        const Q = {x: Number(document.getElementById("Q_x").value),
+                    y: Number(document.getElementById("Q_y").value)};
+        const R = ecAdd(p, a, b, Q, P) 
+        //const R = {x: 15, y: 2};
+        const R_mirror = {x: R.x, y: p - R.y}
+        if (Q.x == P.y) {
+          var q = 'inf';
+          var t = P.x
+        } else {
+          var q = (Q.y - P.y) / (Q.x - P.x)
+          var t = P.y - q * P.x 
+        }
+        const line_points = make_line_points(p, q, t, 0.01, 'addition')
+        const vline_points = make_line_points(p, 'inf', R.x, 0.01, 'reflection')
+        const group_points = make_curve_points(p, a, b);
+        const addition_terms = {
+          x: [Q.x, P.x],
+          y: [Q.y, P.y],
+          mode: 'markers', 
+          name: 'terms', 
+          marker: {
+            color: 'rgb(136, 147, 252)', 
+            size: 20,
+          }, 
+          type: 'scatter'
+        };
+        const results = {
+          x: [R.x, R_mirror.x],
+          y: [R.y, R_mirror.y],
+          mode: 'markers', 
+          name: 'Results', 
+          marker: {
+            color: 'rgb(0, 150, 0)', 
+            size: 20,
+          }, 
+          type: 'scatter'
+        };
+
+        Plotly.newPlot('curve-plot', [group_points, line_points, vline_points,
+            addition_terms, results], layout);
+        
+        log_print('(' + String(P.x) + ':' +  String(P.y) + ') + (' +
+              String(Q.x) + ':' +  String(Q.y) + ') = (' + String(R.x) + ':' +
+              String(R.y) + ')<br>');
+          
+      }
+
+      const layout = {
+        xaxis: {
+          title: 'X', 
+          showgrid: true, 
+          zeroline: true,
+        }, 
+        yaxis: {
+          title: 'Y', 
+        }
+      };
+
       buildCurve()
+      drawAddition()
     </script>
 
     </div>
