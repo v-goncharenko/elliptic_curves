@@ -15,10 +15,7 @@ function bezout(a, b) {
   // a > 0 && b > 0+
   let prev = {a: null, x: 0, b: null, y: 1,                  r: b};
   let curr = {a: a,    x: 1, b: b,    y: -Math.trunc(a / b), r: mod(a, b)};
-  var counter = 0
-  while(curr.r !== 0 && counter < 30) {
-    console.log(b)
-    console.log(counter, String(curr.r), mod(a, b))    
+  while(curr.r !== 0) {
     const div = Math.trunc(curr.b / curr.r);
     const next = {
       a: curr.b,
@@ -29,7 +26,6 @@ function bezout(a, b) {
     };
     prev = curr;
     curr = next;
-    counter++; 
   }
   return [prev.x, prev.y];
 }

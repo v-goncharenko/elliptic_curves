@@ -7,6 +7,18 @@
   <meta name="keywords" content="website keywords, website keywords" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" type="text/css" href="style/style.css" title="style" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
 </head>
 
 <body>
@@ -72,6 +84,139 @@
 <li>Elgamal Encryption.</li>
 <li>Elgamal Signature Scheme.</li>
 </ul>
+
+<h2>Visualisation</h2>
+This is an interactive demonstration of the fact that discrete logarithm problem
+is not that easy to solve. You have a curve and generated points P, Q. Try to
+manually find n such as Q=nP. <br><br>
+
+      Line equation: $y^2 = x^3 + ax + b$<br>
+
+    <label>p</label>
+    <input type = "number" id = "p_value" style='width:50px' value = "23" /> 
+
+    <label>a</label>
+    <input type = "number" id = "a_value" style='width:50px' value = "2" /> 
+
+    <label>b</label>
+    <input type = "number" id = "b_value" style='width:50px' value = "3" /> <br>
+
+    <button onclick="buildCurve()">Build curve</button> <br><br>
+    <button onclick="generateProblem()">New problem</button> <br><br>
+
+    <div class="slidecontainer">
+        <input type="myRange" min="0" max="10" value="50" class="slider" id="myRange">
+    </div>
+		<div id='slider_output'>0</div> <br>
+
+    <div id="curve-plot" align='center' style='height:20vw'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="logging" align='center' style='border:inset'><!-- Place your output here --></div>
+    
+    <script src="./curve-plot/curve-plot.js"></script>
+    <script>
+			var group_points = -1
+			var [P, Q] = [-1, -1]
+      var [p, a, b] = [Number(document.getElementById("p_value").value),
+                                Number(document.getElementById("a_value").value),
+                                Number(document.getElementById("b_value").value)];
+      
+			function buildCurve() { 
+          [p, a, b] = [Number(document.getElementById("p_value").value),
+                                Number(document.getElementById("a_value").value),
+                                Number(document.getElementById("b_value").value)];
+          group_points = make_curve_points(p, a, b);
+					Plotly.newPlot('curve-plot', [group_points], layout);
+						
+          log_clear();
+          log_print('Curve points:')          
+          print_points(group_points);
+          log_print('<br>')
+					generateProblem()
+      }
+
+			function generateProblem() {
+					slider.max = p		
+					while (Q == -1 || Q.x == null) {
+						const i = Math.floor(Math.random() * group_points.x.length)
+						const n = Math.floor(Math.random() * p)
+						P = {x: group_points.x[i], y: group_points.y[i]}
+						console.log(i, n, P)
+						Q = ecMult(p, a, b, P, n) 	
+					}
+          log_print('Current problem: ')          
+          log_print('(' + String(Q.x) + ':' + String(Q.y) + ') = n(' + String(P.x) + ':' + String(P.y) + ')<br>' )          
+          drawProblem()
+			}
+			
+			function drawProblem() {
+        const target = {
+          x: [Q.x],
+          y: [Q.y],
+          mode: 'markers', 
+          name: 'target', 
+          marker: {
+            color: 'rgb(0, 150, 0)', 
+            size: 20,
+          }, 
+          type: 'scatter'
+        };
+
+        const base = {
+          x: [P.x],
+          y: [P.y],
+          mode: 'markers', 
+          name: 'base', 
+          marker: {
+            color: 'rgb(0, 200, 0)', 
+            size: 20,
+          }, 
+          type: 'scatter'
+        };
+
+        const R = ecMult(p, a, b, P, Number(slider.value))
+        console.log(slider.value, P, Q, R)
+        if (R.x == null) {
+          R.x = 0
+          R.y = 0
+        }
+
+        const guess = {
+          x: [R.x],
+          y: [R.y],
+          mode: 'markers', 
+          name: 'guess', 
+          marker: {
+            color: 'rgb(121, 121, 0)', 
+            size: 20,
+          }, 
+          type: 'scatter'
+        };
+				Plotly.newPlot('curve-plot', [group_points, target, base, guess], layout);
+			}
+
+      const layout = {
+        xaxis: {
+          title: 'X', 
+          showgrid: true, 
+          zeroline: true,
+        }, 
+        yaxis: {
+          title: 'Y', 
+        }
+      };
+
+      var slider = document.getElementById("myRange");
+			var output = document.getElementById("slider_output");
+			output.innerHTML = slider.value; // Display the default slider value
+
+			// Update the current slider value (each time you drag the slider handle)
+			slider.oninput = function() {
+				output.innerHTML = 'n = ' + String(this.value);
+        drawProblem()
+			} 
+      buildCurve()
+
+    </script>
 	  </div>
 <div id="footer">
     Copyright &copy; Skoltech Team | <a href="http://www.skoltech.ru">Eleptical Curves</a>
