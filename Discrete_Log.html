@@ -114,6 +114,7 @@ manually find n such as Q=nP. <br><br>
     
     <script src="./curve-plot/curve-plot.js"></script>
     <script>
+
 			var group_points = -1
 			var [P, Q] = [-1, -1]
       var [p, a, b] = [Number(document.getElementById("p_value").value),
@@ -135,12 +136,12 @@ manually find n such as Q=nP. <br><br>
       }
 
 			function generateProblem() {
+          Q = -1
 					slider.max = p		
 					while (Q == -1 || Q.x == null || (Q.x == P.x && Q.y == P.y)) {
 						const i = Math.floor(Math.random() * group_points.x.length)
 						const n = Math.floor(Math.random() * p)
 						P = {x: group_points.x[i], y: group_points.y[i]}
-						console.log(i, n, P)
 						Q = ecMult(p, a, b, P, n) 	
 					}
           log_print('Current problem: ')          
@@ -174,7 +175,6 @@ manually find n such as Q=nP. <br><br>
         };
 
         const R = ecMult(p, a, b, P, Number(slider.value))
-        console.log(slider.value, P, Q, R)
         if (R.x == null) {
           R.x = 0
           R.y = 0
