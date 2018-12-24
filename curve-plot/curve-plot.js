@@ -82,24 +82,44 @@ function ecSubgroup(p, a, b, G) {
 
 function range(start, stop, step) {
   let grid = [];
-  for(let i = start; i <= stop; i += step) {
+  for(let i = start; i < stop; i += step) {
     grid.push(i);
   }
   return grid;
 }
 
-function make_curve_points(p, a, b, start, stop, step, sign = 1) {
-  const X = range(start, stop, step);
-  const Y = X.map(x => sign * Math.sqrt(Math.pow(x, 3) + a * x + b) % p)
+function make_curve_points(p, a, b) {
+  let X = []; 
+  let Y = []; 
+  let Y_roots = {};
+  
+  for (var i = 0; i < p; i++) {
+    let square = Math.pow(i, 2) % p;
+    if (square in Y_roots) {
+      Y_roots[square].push(i)
+    } else {
+      Y_roots[square] = [i]
+    }
+  }
+
+  for (var i = 0; i < p; i++) {
+    let square = (Math.pow(i, 3) + a * i + b) % p
+    if (square in Y_roots) {
+      for (var j = 0; j < Y_roots[square].length; j++) {
+        X.push(i)
+        Y.push(Y_roots[square][j])
+      }
+    }
+  }
 
   return {
-    x: X.map(x => x % p).map(x => x >= 0 ? x : x + p),
+    x: X,
     y: Y,
     mode: 'markers', 
     name: 'Elliptic curve', 
     marker: {
       color: 'rgb(255, 217, 102)', 
-      size: 5,
+      size: 12,
     }, 
     type: 'scatter'
   };
