@@ -139,4 +139,15 @@ function make_line_points(p, a, b, step=0.01, name='Line') {
     }, 
     type: 'scatter'
   };
+
 }
+
+function log_print(s) {
+      document.getElementById('logging').innerHTML =
+        document.getElementById('logging').innerHTML + s + '<br>'
+}
+
+function log_clear() {
+	document.getElementById('logging').innerHTML = ''
+}
+	

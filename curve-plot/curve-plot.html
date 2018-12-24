@@ -52,15 +52,6 @@
 
   <script src="./curve-plot.js"></script>
   <script>
-    function log_print(s) {
-      document.getElementById('logging').innerHTML =
-        document.getElementById('logging').innerHTML + s + '<br>'
-    }
-
-    function log_clear() {
-      document.getElementById('logging').innerHTML = ''
-    }
-      
     function buildCurve() { 
         'use strict';
         const [p, a, b] = [Number(document.getElementById("p_value").value),

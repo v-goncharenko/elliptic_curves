@@ -7,6 +7,18 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="style/style.css" title="style" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
 </head>
 
 <body>
@@ -39,10 +51,55 @@
       <p>x<sub>R</sub> = s<sup>2</sup> &ndash; x<sub>P</sub> - x<sub>Q</sub></p>
       <p>y<sub>R</sub> = y<sub>P</sub> + s(x<sub>R</sub> &ndash; x<sub>Q</sub>)</p>
       <p>But there are several special cases when P and Q are symmetric along axis or one of the coordinates of P and Q are simultaneously or individually equal to zero. During computation these cases should be manually checked and the coordinates for R assigned manually.</p>
+
+    <h2>Addition example</h2>
+    $y^2 = x^3 + ax + b$<br>
+
+    <label>p</label>
+    <input type = "number" id = "p_value" value = "23" /> 
+
+    <label>a</label>
+    <input type = "number" id = "a_value" value = "2" /> 
+
+    <label>b</label>
+    <input type = "number" id = "b_value" value = "3" /> <br>
+
+    <button onclick="buildCurve()">Build curve</button>
+    <div id="curve-plot" align='center' style='height:20vw'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="logging" align='center' style='border:inset'><!-- Place your output here --></div>
+    
+    <script src="./curve-plot/curve-plot.js"></script>
+    <script>
+      function buildCurve() { 
+          'use strict';
+          const [p, a, b] = [Number(document.getElementById("p_value").value),
+                                Number(document.getElementById("a_value").value),
+                                Number(document.getElementById("b_value").value)];
+
+          const group_points = make_curve_points(p, a, b);
+          log_clear();
+
+          const layout = {
+            xaxis: {
+              title: 'X', 
+              showgrid: true, 
+              zeroline: true,
+            }, 
+            yaxis: {
+              title: 'Y', 
+            }
+          };
+
+          Plotly.newPlot('curve-plot', [group_points], layout);
+      }
+      buildCurve()
+    </script>
+
     </div>
     <div id="footer">
     Copyright &copy; Skoltech Team | <a href="http://www.skoltech.ru">Eleptical Curves</a>
     </div>
+
   </div>
 </body>
 </html>
