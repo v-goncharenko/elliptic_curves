@@ -53,12 +53,12 @@
   <script>
     function buildCurve() { 
         'use strict';
-        const [p, a, b, G] = [Number(document.getElementById("p_value").value),
+        const [p, a, b] = [Number(document.getElementById("p_value").value),
                               Number(document.getElementById("a_value").value),
-                              Number(document.getElementById("b_value").value),
-                              {x: 5, y: 1}];
+                              Number(document.getElementById("b_value").value)];
 
         const group_points = make_curve_points(p, a, b) 
+        const line_points = make_line_points(p, 2, 2)
 
         const layout = {
           title: 'Elliptic curve over finite field plot', 
@@ -72,9 +72,10 @@
           }
         };
 
-        Plotly.newPlot('curve-plot', [group_points], layout);
+        Plotly.newPlot('curve-plot', [group_points, line_points], layout);
     }
     buildCurve()
+
   </script>
   
 </body>
