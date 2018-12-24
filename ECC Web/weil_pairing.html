@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>textured_green</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" title="style" />
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="index.html">Elliptical Curves <span class="logo_colour">Demo</span></a></h1>
+          <h2>Simple Introduction on Elliptical Curves</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li class="selected"><a href="index.html">Home</a></li>
+          <li><a href="EC_for_PKI.html">EC for PKI</a></li>
+          <li><a href="GroupLaw.html">Group Law</a></li>
+          <li><a href="Discrete_Log.html">Discrete Log</a></li>
+          <li><a href="Weil_Paring.html">Weil Paring</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="site_content">
+      <div class="sidebar">
+        <!-- insert your sidebar items here -->
+        
+<p></p>
+<h3>Useful Links</h3>
+        <p>Articles</p>
+        <ul>
+          <li><a href="https://www.sciencedirect.com/science/article/pii/S016740489980008X">EC for PKI</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/pii/S0166218X08000449">Group Law</a></li>
+          <li><a href="https://core.ac.uk/download/pdf/82624456.pdf">Discrete Law</a></li>
+          <li><a href="https://digitalcommons.unf.edu/cgi/viewcontent.cgi?article=1138&context=etd">Weil Paring</a></li>
+        </ul>
+<form method="post" action="#" id="search_form">
+</form>
+      </div>
+      <div id="content">
+        <h2>Definition</h2>
+          Let E(K) be some elliptic curve over a field K, 
+            <span lang='latex'>Q, R \in E(K)[n]</span>,
+          where <span lang='latex'>E(K)[n] = \{T \in E(K) | n \cdotp T = O
+            \}</span>, O denotes infinity point. 
+          Then weil-pairing is a function that produces the n-th root
+          of unity:
+          <p align='center' lang='latex'>w(Q, P) \in \mu_n,</p>
+          where <span lang='latex'>\mu_n = \{x \in K | x^n = 1\} </span>
+        <h2>Properties</h2>
+          <ul>
+            <li>bilinearity: <br>
+              <span lang='latex'>w(Q_1 + Q_2, P) = w(Q_1, P)w(Q_2, P)</span> <br>
+              <span lang='latex'>w(Q, P_1 + P_2) = w(Q, P_1)w(Q, P_2)</span>
+            </li>
+            <li>
+              alternating property: <br>
+              <span lang='latex'>w(Q, P) = w(P, Q)^{-1}</span>
+            </li>
+            <li>
+              nondegenerate property: <br>
+              <span lang='latex'>\forall P\ w(Q, P) = 1 \Leftrightarrow Q = O</span>
+              <br>
+              <span lang='latex'>\forall Q\ w(Q, P) = 1 \Leftrightarrow P = O</span>
+            </li>
+            <li>
+              <span lang='latex'>w(Q, Q) = 1</span>
+            </li>
+          </ul>
+
+        <h2>Building using divisors</h2>
+          Consider the function <span lang='latex'>f(x, y): E(K)
+            \rightarrow \mathbb{R}</span>. We define it's divisor as following:
+          <p align='center' lang='latex'>div(f) = \sum_i m_i(Z_i) - \sum_j m_j(P_j),</p>
+          where P are poles of f on E(K), Z are zeros and 
+          <span lang='latex'>m_i, m_j</span> are corresponding
+          multiplicities. Note, that (P) and (Q) formally are elements of new group and
+          cannot be added like points on curve, but instead can be added as usual
+          polynomials. Examples:
+          <p align='center' lang='latex'>A = (Q) - 2(P),\ B = (P) - (R)</p>
+          <p align='center' lang='latex'>A + B = (Q) - (P) - (R),\ 2A = 2(Q) - 4(P)</p>
+          Function f is called rational if it can 
+          be represented as ratio of two polynomials. Divisors of rational functions
+          are called principle divisors and have the following quality:
+          <span lang='latex'>\sum_i m_i - \sum_j m_j = 0</span> (simple heuristic
+          approach is just to pad missing poles with O, thus for line intersecting
+          E(K) in points A, B, C (obviously rational function), divisor will be (A)
+          + (B) + (C) - 3(O)). 
+          <span lang='latex'>S, T \in E(K)[m]</span> for some m coprime to p and construct 
+          two divisors <span lang='latex'>A = (S) - (O), B = (T) - (O)</span>. 
+          Now we should find two functions 
+          <span lang='latex'>f_A, f_b:\ div(f_A) = mA,\ div(f_B) = mB</span>, and
+          the weil-pairing will be defined as:
+          <p align='center' lang='latex'>w(S, T) = \frac{f_A(B)}{f_B(A)},</p>
+          where we apply function f to divisor C as following:
+          <p align='center' lang='latex'>f(C) = \prod_i f(Z_i)^{m_i} \cdot \prod_j
+          f(P_i)^{-m_j},</p> 
+          where <span lang='latex'>Z_i, m_i, P_j, m_j</span> are zeros and poles in
+          C with their corresponding multiplicities.
+          It can be shown that weil-pairing doesn't depend on the choice of A, B and
+          the corresponding functions.
+          
+
+        <h2>Miller's algorithm to compute weil-pairing</h2>
+          <h3>Function from divisor calculation</h3>
+            <p align='center' lang='latex'>D_1 = k(P_1) - k(O) + div(f_1)</p>
+            <p align='center' lang='latex'>D_2 = p(P_2) - p(O) + div(f_2)</p>
+            <p align='center' lang='latex'>D_1 + D_2  = (P_3) - (O) + div(f_1f_2f_3)</p>
+            Here we denote <span lang='latex'>P_3 = kP_1 + pP_2,\
+              f_3=\frac{l}{v},\ l: l_1x + l_2y + l_3 = 0</span> is the equation of
+            the line going through <span lang='latex'>kP_1, pP_2,\ v: x + v_1 =
+              0</span> is the equation of vertical line going through <span
+              lang='latex'>P_3</span> (if <span lang='latex'>P_3 = O</span>, then
+            take <span lang='latex'>v = 1</span>). For k=1 (p-1) take 
+            <span lang='latex'>div(f_1) = 1\ (div(f_2) = 1)</span>. Example: <br>
+            Consider <span lang='latex'>E(K): y^2 = x^3 + 3x mod 11</span>. Let's
+            take P = (1, 2) and find f such that div(f) = 6(P) - 6(O). <br><br>
+
+            <span lang='latex'>(P) - (O) = (P) - (O) + div(1)</span><br><br>
+
+            <span lang='latex'>2(P) - 2(O) = ((P) - (O)) + ((P) - (O)) =
+              (P + P) + div(1 \cdot 1 \cdot \frac{l}{v}) = ((3, 6)) 
+               - (O)+ div(\frac{y + 4x + 5}{x + 8})</span><br><br>
+            
+            <span lang='latex'>4(P) - 4(O) = (2(P) - 2(O)) + (2(P) - 2(O)) =
+              (2P + 2P) - 4(O)+ div(f_{2,2} \cdot f_{2,2} \cdot \frac{l}{v}) = ((3,
+              6)) - (O)
+              + div(\frac{(y + 4x + 5)^2}1{(x + 8)^2}\frac{(y + 3x +
+              7)}{(x+8)})</span><br><br>
+
+            <span lang='latex'>6(P) - 6(O) = (2(P) - 2(O)) + (4(P) - 4(O)) =
+              (2P + 4P) - 6(O)+ div(f_{2,2} \cdot f_{2,2} \cdot \frac{l}{v}) = (O) - (O)
+              + div(\frac{(y + 4x + 5)^3}1{(x + 8)^3}\frac{(y + 3x +
+              7)}{(x+8)}\frac{(x + 8)}{1})</span><br><br>
+
+          <h3>Weil-pairing calculation</h3>
+            Suppose we want to calculate weil-pairing for
+            <span lang='latex'>S, T \in E(K).</span> Choose S', T' from E(K) such
+            that all T, S, T+T', S+S' are different. Set A = n(S) - n(O), B = n(T) -
+            n(O) (where n is the order of desired root of unity). <br>
+            Now we compute the functions <span lang='latex'>f_A,\ f_B</span> 
+            from divisors with the algorithm above and finally get ours pairing:
+            <p align='center' lang='latex'>w(S, T) = \frac{f_A(T +
+            T')f_B(S')}{f_B(S + S')f_A(T')}</p>
+
+        <h2>Applications</h2>
+          <h3>MOV attack</h3>
+            It is the way to reformulate discrete logarithm (find a in Q=aP)problem to obtain
+            (sometimes) less computationally demanding task. <br>
+            It can be shown that for <span lang='latex'>Q, P \in E[l]\ w(Q, P)=1 
+            \Leftrightarrow Q \in</span> subgroup generated by P.
+            Thus let's find any <span lang='latex'>R \in E[l]</span> such that 
+            <span lang='latex'>w(P, R) \neq 1</span>. Then:
+            <p align='center' lang='latex'>
+              v = w(Q, R) = w(aP, R) = w(P, R)^a = u^a 
+            </p>
+            Now we have problem of discrete logarithm over field of size <span
+              lang='latex'>p^k</span>, where 
+            <span lang='latex'>k = argmin_k (p^k - 1)\ \mathrm{coprime\ with}\
+              m</span>, p is the modulo generating K. There is some class of curves
+            that have this new field relatively small.
+
+          <h3>Jouxs Tripartite Diffie-Hellman Key Exchange</h3> 
+            With weil-pairing we can safely share common secret among three sides.
+            Let sides A, B, C choose some elliptic curve and it's arbitrary points
+            P, Q (<span lang='latex'>(P \neq Q)</span>).
+            They generate random numbers a, b, c, that will be their private keys,
+            and public public keys aP, bP, cP. For A the procedure to get the common
+            secret is as following (bilinearity of weil-pairing is used):
+            <p align='center' lang='latex'>S = w(bP, cQ)^a = w(P, Q)^{abc}</p>
+
+        <h2>Sources</h2>
+          <ol>
+            <li>
+              https://www.win.tue.nl/~bdeweger/downloads/MT%20Martijn%20Maas.pdf
+            </li>
+            <li>
+              https://en.wikipedia.org/wiki/Weil_pairing 
+            </li>
+            <li>
+              https://crypto.stanford.edu/pbc/notes/elliptic/funcfield.html
+            </li>
+            <li>
+              http://www.mathematik.uni-regensburg.de/kerz/ss16/ausarb/sotakova.pdf
+            </li>
+          </ol>
+      </div>
+    </div>
+<div id="footer">
+    Copyright &copy; Skoltech Team | <a href="http://www.skoltech.ru">Eleptical Curves</a>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
